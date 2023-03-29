@@ -24,11 +24,20 @@ QtWidgetsApplication1::QtWidgetsApplication1(QWidget *parent)
     
     //Codice per aggiungere le scrollbar
     QScrollArea* scrollArea = new QScrollArea(parent);
+    
+    scrollArea->setWidgetResizable(true); //imposta la scrollArea come ridimensionabile
+    paintArea->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
     scrollArea->setBackgroundRole(QPalette::Dark); //imposta il colore di sfondo del widget scrollArea a Dark
     scrollArea->setWidget(paintArea); //imposta il widget paintArea come widget interno di scrollArea
     //setCentralWidget(scrollArea); //setta scrollArea come widget centrale
     //this->layout()->addWidget(scrollArea);
     paintArea->setFixedSize(500, 500); //set the size of the paint area to 500x500
+    //paintArea->resize(500, 500);
+
+
+    //TODO : nel paint della window devo adattare la dimensione della paintArea alla dimensione dell'immagine, oppure nella resize dell'immagine
+
     
     setCentralWidget(scrollArea); //set the scroll area as the central widget
 
@@ -95,6 +104,19 @@ void QtWidgetsApplication1::about()
         tr("<p><b>Paint</b> is a small Qt application</p>"));
 }
 
+void QtWidgetsApplication1::resizeImage()
+{
+    int currentSize = 1024;//paintArea->image().size().width();
+    bool ok;
+    int size = QInputDialog::getInt(this, tr("Image Size"),
+        tr("Pixels:"), currentSize, 0, 10000000, 1, &ok);
+    if (ok)
+    {
+        QSize qSize = QSize(size, size);
+        paintArea->resizeImage(qSize);
+    }
+}
+
 void QtWidgetsApplication1::createActions()
 {
     openAct = new QAction(tr("Open"), this); //create the action for opening a file
@@ -119,6 +141,9 @@ void QtWidgetsApplication1::createActions()
     connect(penColorAct, SIGNAL(triggered()), this, SLOT(penColor())); //connect the action to the penColor slot
     penWidthAct = new QAction(tr("Pen &Width..."), this);
     connect(penWidthAct, SIGNAL(triggered()), this, SLOT(penWidth()));
+
+    imageSizeAct = new QAction(tr("&Image Size..."), this);
+    connect(imageSizeAct, SIGNAL(triggered()), this, SLOT(resizeImage()));
 
     clearScreenAct = new QAction(tr("&Clear Screen..."), this);
     clearScreenAct->setShortcut(tr("Ctrl+L"));
@@ -146,6 +171,8 @@ void QtWidgetsApplication1::createMenus()
     optionMenu = new QMenu(tr("&Options"), this);
     optionMenu->addAction(penColorAct);
     optionMenu->addAction(penWidthAct);
+    optionMenu->addSeparator();
+    optionMenu->addAction(imageSizeAct);
     optionMenu->addSeparator();
     optionMenu->addAction(clearScreenAct);
 

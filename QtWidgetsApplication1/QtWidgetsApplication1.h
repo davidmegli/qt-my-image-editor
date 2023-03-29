@@ -32,6 +32,7 @@ private slots:
     void penColor();
     void penWidth();
     void about();
+    void resizeImage();
 
 private:
     void createActions();
@@ -52,8 +53,19 @@ private:
     QAction *penWidthAct;
     QAction *printAct;
     QAction *clearScreenAct;
+    QAction *imageSizeAct;
+
+    //TODO: To implement
     QAction *aboutAct;
     QAction *aboutQtAct;
+    QAction *undoAct;
+    QAction *redoAct;
+    QAction *cutAct;
+    QAction *copyAct;
+    QAction *pasteAct;
+    QAction *selectAllAct;
+    QAction *selectNoneAct;
+
 
     QScrollArea* scrollArea;
 

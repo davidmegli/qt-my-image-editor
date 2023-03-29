@@ -56,6 +56,11 @@ void PaintArea::setPenWidth(int newWidth)
 	myPenWidth = newWidth;
 }
 
+void PaintArea::resizeImage(QSize& newSize)
+{
+	resizeImage(&this->image, newSize);
+}
+
 void PaintArea::clearImage()
 {
 	image.fill(qRgb(255, 255, 255)); //fills the image with white
@@ -127,6 +132,8 @@ void PaintArea::resizeImage(QImage* image, const QSize& newSize)
 	QPainter painter(&newImage); //create a painter object
 	painter.drawImage(QPoint(0, 0), *image); //draw the image on the new image
 	*image = newImage; //assign the new image to the image member variable
+
+	this->setFixedSize(newSize); //TEST
 }
 
 void PaintArea::print()

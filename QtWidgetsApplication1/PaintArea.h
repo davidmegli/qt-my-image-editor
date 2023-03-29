@@ -11,7 +11,7 @@
 
 class PaintArea : public QWidget
 {
-	public:
+public:
 	PaintArea(QWidget *parent = nullptr);
 	~PaintArea();
 
@@ -23,6 +23,7 @@ class PaintArea : public QWidget
 	bool isModified() const { return modified; }
 	QColor penColor() const { return myPenColor; }
 	int penWidth() const { return myPenWidth; }
+	void resizeImage(QSize& newSize);
 
 public slots:
 	void clearImage();
@@ -37,7 +38,7 @@ protected:
 
 private:
 	void drawLineTo(const QPoint &endPoint);
-	void resizeImage(QImage *image, const QSize &newSize);
+	void resizeImage(QImage* image, const QSize& newSize);
 
 	bool modified;
 	bool painting;
