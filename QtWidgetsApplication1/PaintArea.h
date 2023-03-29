@@ -1,13 +1,16 @@
 #pragma once
 
-#include <QWidget>
 
+#include <memory>
+#include <QWidget>
 #include <QImage>
 #include <QPoint>
 #include <QColor>
 #include <QPen>
 #include <QPainter>
 #include <QPaintEvent>
+
+using std::shared_ptr;
 
 class PaintArea : public QWidget
 {
@@ -25,6 +28,9 @@ public:
 	int penWidth() const { return myPenWidth; }
 	void resizeImage(QSize& newSize);
 
+	static const int DEF_WIDTH = 1280;
+	static const int DEF_HEIGHT = 720;
+
 public slots:
 	void clearImage();
 	void print();
@@ -38,14 +44,15 @@ protected:
 
 private:
 	void drawLineTo(const QPoint &endPoint);
-	void resizeImage(QImage* image, const QSize& newSize);
+	void resizeImage(shared_ptr<QImage> image, const QSize& newSize);
 
 	bool modified;
 	bool painting;
 	int myPenWidth;
 	QColor myPenColor;
-	QImage image;
+	shared_ptr<QImage> image;
 	QPoint lastPoint;
+
 
 };
 

@@ -32,7 +32,7 @@ QtWidgetsApplication1::QtWidgetsApplication1(QWidget *parent)
     scrollArea->setWidget(paintArea); //imposta il widget paintArea come widget interno di scrollArea
     //setCentralWidget(scrollArea); //setta scrollArea come widget centrale
     //this->layout()->addWidget(scrollArea);
-    paintArea->setFixedSize(500, 500); //set the size of the paint area to 500x500
+    paintArea->setFixedSize(PaintArea::DEF_WIDTH, PaintArea::DEF_HEIGHT); //set the size of the paint area to 500x500
     //paintArea->resize(500, 500);
 
 
@@ -46,7 +46,7 @@ QtWidgetsApplication1::QtWidgetsApplication1(QWidget *parent)
     createActions();
     createMenus();
     setWindowTitle(tr("Paint"));
-    resize(500, 500);
+    resize(PaintArea::DEF_WIDTH, PaintArea::DEF_HEIGHT);
 }
 
 void QtWidgetsApplication1::closeEvent(QCloseEvent* event)
@@ -127,7 +127,7 @@ void QtWidgetsApplication1::createActions()
     openAct = new QAction(tr("Open"), this); //create the action for opening a file
     openAct->setShortcuts(QKeySequence::Open); //sets the shortcut to Ctrl+O
     connect(openAct, SIGNAL(triggered()), this, SLOT(open()));
-    //create the menu entries for the different image formats
+    //creates the menu entries for the different image formats
     foreach(QByteArray format, QImageWriter::supportedImageFormats())
     {
         QString text = tr("%1...").arg(QString(format).toUpper());
@@ -137,13 +137,13 @@ void QtWidgetsApplication1::createActions()
         saveAsActs.append(action); //add the action to the list of actions
     }
     printAct = new QAction(tr("&Print..."), this);
-    connect(printAct, SIGNAL(triggered()), this, SLOT(print()));
+    connect(printAct, SIGNAL(triggered()), paintArea, SLOT(print())); //FIXME: print() is never called
     exitAct = new QAction(tr("E&xit"), this);
     exitAct->setShortcuts(QKeySequence::Quit);
     connect(exitAct, SIGNAL(triggered()), this, SLOT(close()));
 
-    penColorAct = new QAction(tr("&Pen Color..."), this); //create the action for the pen color
-    connect(penColorAct, SIGNAL(triggered()), this, SLOT(penColor())); //connect the action to the penColor slot
+    penColorAct = new QAction(tr("&Pen Color..."), this);
+    connect(penColorAct, SIGNAL(triggered()), this, SLOT(penColor()));
     penWidthAct = new QAction(tr("Pen &Width..."), this);
     connect(penWidthAct, SIGNAL(triggered()), this, SLOT(penWidth()));
 
@@ -152,7 +152,7 @@ void QtWidgetsApplication1::createActions()
 
     clearScreenAct = new QAction(tr("&Clear Screen..."), this);
     clearScreenAct->setShortcut(tr("Ctrl+L"));
-    connect(clearScreenAct, SIGNAL(triggered()), this, SLOT(clearImage()));
+    connect(clearScreenAct, SIGNAL(triggered()), paintArea, SLOT(clearImage())); //FIXME: clearImage() is never called
 
     aboutAct = new QAction(tr("&About"), this);
     connect(aboutAct, SIGNAL(triggered()), this, SLOT(about()));
