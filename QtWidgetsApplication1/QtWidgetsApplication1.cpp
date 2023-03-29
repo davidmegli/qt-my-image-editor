@@ -108,12 +108,17 @@ void QtWidgetsApplication1::resizeImage()
 {
     int currentSize = 1024;//paintArea->image().size().width();
     bool ok;
-    int size = QInputDialog::getInt(this, tr("Image Size"),
-        tr("Pixels:"), currentSize, 0, 10000000, 1, &ok);
+    int width = QInputDialog::getInt(this, tr("Image Size"),
+        tr("Width:"), currentSize, 0, 10000000, 1, &ok);
     if (ok)
     {
-        QSize qSize = QSize(size, size);
-        paintArea->resizeImage(qSize);
+        int height = QInputDialog::getInt(this, tr("Image Size"),
+            tr("Height:"), currentSize, 0, 10000000, 1, &ok);
+        if (ok)
+        {
+            QSize qSize = QSize(width, height);
+            paintArea->resizeImage(qSize);
+        }
     }
 }
 
