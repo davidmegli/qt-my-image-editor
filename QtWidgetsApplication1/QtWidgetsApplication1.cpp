@@ -137,7 +137,8 @@ void QtWidgetsApplication1::createActions()
         saveAsActs.append(action); //add the action to the list of actions
     }
     printAct = new QAction(tr("&Print..."), this);
-    connect(printAct, SIGNAL(triggered()), paintArea, SLOT(print())); //FIXME: print() is never called
+    connect(printAct, &QAction::triggered, paintArea, &PaintArea::print);
+
     exitAct = new QAction(tr("E&xit"), this);
     exitAct->setShortcuts(QKeySequence::Quit);
     connect(exitAct, SIGNAL(triggered()), this, SLOT(close()));
@@ -152,7 +153,7 @@ void QtWidgetsApplication1::createActions()
 
     clearScreenAct = new QAction(tr("&Clear Screen..."), this);
     clearScreenAct->setShortcut(tr("Ctrl+L"));
-    connect(clearScreenAct, SIGNAL(triggered()), paintArea, SLOT(clearImage())); //FIXME: clearImage() is never called
+    connect(clearScreenAct, &QAction::triggered, paintArea, &PaintArea::clearImage);
 
     aboutAct = new QAction(tr("&About"), this);
     connect(aboutAct, SIGNAL(triggered()), this, SLOT(about()));
