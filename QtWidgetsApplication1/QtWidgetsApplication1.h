@@ -43,7 +43,6 @@
         QMenu *saveAsMenu;
         QMenu* optionMenu;
         QMenu *fileMenu;
-        QMenu *optionsMenu;
         QMenu *editMenu;
         QMenu *helpMenu;
         QAction *openAct;

@@ -143,6 +143,14 @@ void QtWidgetsApplication1::createActions()
     exitAct->setShortcuts(QKeySequence::Quit);
     connect(exitAct, SIGNAL(triggered()), this, SLOT(close()));
 
+    undoAct = new QAction(tr("&Undo"), this);
+    undoAct->setShortcuts(QKeySequence::Undo);
+    connect(undoAct, &QAction::triggered, paintArea, &PaintArea::undo);
+
+    redoAct = new QAction(tr("&Redo"), this);
+    redoAct->setShortcuts(QKeySequence::Redo);
+    connect(redoAct, &QAction::triggered, paintArea, &PaintArea::redo);
+
     penColorAct = new QAction(tr("&Pen Color..."), this);
     connect(penColorAct, SIGNAL(triggered()), this, SLOT(penColor()));
     penWidthAct = new QAction(tr("Pen &Width..."), this);
@@ -174,6 +182,10 @@ void QtWidgetsApplication1::createMenus()
     fileMenu->addSeparator();
     fileMenu->addAction(exitAct);
 
+    editMenu = new QMenu(tr("&Edit"), this);
+    editMenu->addAction(undoAct);
+    editMenu->addAction(redoAct);
+
     optionMenu = new QMenu(tr("&Options"), this);
     optionMenu->addAction(penColorAct);
     optionMenu->addAction(penWidthAct);
@@ -187,6 +199,7 @@ void QtWidgetsApplication1::createMenus()
     helpMenu->addAction(aboutQtAct);
 
     menuBar()->addMenu(fileMenu);
+    menuBar()->addMenu(editMenu);
     menuBar()->addMenu(optionMenu);
     menuBar()->addMenu(helpMenu);
 }

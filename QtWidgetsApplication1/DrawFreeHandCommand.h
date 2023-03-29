@@ -19,6 +19,7 @@ public:
 	void execute() override;
 	void undo() override;
 	void redo() override;
+	std::shared_ptr<DrawCommand> clone() const override;
 	~DrawFreeHandCommand();
 
 private:

@@ -45,6 +45,10 @@ void DrawFreeHandCommand::redo()
 	}
 }
 
+std::shared_ptr<DrawCommand> DrawFreeHandCommand::clone() const {
+	return std::make_shared<DrawFreeHandCommand>(*this);
+}
+
 DrawFreeHandCommand::~DrawFreeHandCommand()
 {
 }

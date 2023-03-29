@@ -8,7 +8,8 @@ void CommandManager::executeCommand(shared_ptr<DrawCommand> command, QPoint last
 {
 	qDebug() << "CommandManager::executeCommand";
 	command->execute(lastPoint);
-	undoCommands.push_back(command);
+	//undoCommands.push_back(command);
+	undoCommands.push_back(command->clone()); //che schifo
 	redoCommands.clear();
 }
 
@@ -25,7 +26,7 @@ void CommandManager::undoCommand()
 		shared_ptr<DrawCommand> command = undoCommands.back();
 		command->undo();
 		undoCommands.pop_back();
-		redoCommands.push_back(command);
+		undoCommands.push_back(command->clone());
 	}
 }
 
@@ -42,7 +43,7 @@ void CommandManager::redoCommand()
 		shared_ptr<DrawCommand> command = redoCommands.back();
 		command->execute();
 		redoCommands.pop_back();
-		undoCommands.push_back(command);
+		undoCommands.push_back(command->clone());
 	}
 }
 

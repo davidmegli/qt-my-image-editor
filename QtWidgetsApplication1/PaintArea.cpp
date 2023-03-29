@@ -86,8 +86,7 @@ void PaintArea::mouseMoveEvent(QMouseEvent* event)
 {
 	if ((event->buttons() & Qt::LeftButton) && painting) //if left mouse button pressed && painting flag is true
 	{
-		currentCommand->execute(event->pos());
-		//drawLineTo(event->pos()); //draw a line from the last point to the current point
+		commandManager.executeCommand(currentCommand, event->pos());
 	}
 }
 
@@ -96,8 +95,7 @@ void PaintArea::mouseReleaseEvent(QMouseEvent* event)
 	qDebug() << "mouseReleaseEvent";
 	if (event->button() == Qt::LeftButton && painting) //if the left mouse button is released and the painting flag is true
 	{
-		//drawLineTo(event->pos()); //draw a line from the last point to the current point
-		currentCommand->execute(event->pos());
+		commandManager.executeCommand(currentCommand, event->pos());
 		painting = false; //set the painting flag to false
 	}
 }
@@ -166,6 +164,16 @@ void PaintArea::print()
 		painter.drawImage(0, 0, *image); //draw the image on the painter
 	}
 #endif
+}
+
+void PaintArea::undo()
+{
+	commandManager.undoCommand();
+}
+
+void PaintArea::redo()
+{
+	commandManager.redoCommand();
 }
 
 PaintArea::~PaintArea()
