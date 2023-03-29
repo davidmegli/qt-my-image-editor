@@ -9,6 +9,7 @@
 #include <QPen>
 #include <QPainter>
 #include <QPaintEvent>
+#include "CommandManager.h"
 
 using std::shared_ptr;
 
@@ -52,7 +53,8 @@ private:
 	QColor myPenColor;
 	shared_ptr<QImage> image;
 	QPoint lastPoint;
-
+	CommandManager commandManager;
+	shared_ptr<DrawCommand> currentCommand;
 
 };
 

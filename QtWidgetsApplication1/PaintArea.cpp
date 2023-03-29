@@ -1,12 +1,13 @@
 #include "PaintArea.h"
 
-#include <QtWidgets>
+//#include <QtWidgets>
 #if defined(QT_PRINTSUPPORT_LIB)
 #include <QtPrintSupport/qtprintsupportglobal.h>
 #if QT_CONFIG(printer)
 #include <QPrinter>
 #include <QPrintDialog>
 #endif
+#include "DrawFreeHandCommand.h"
 #endif
 
 PaintArea::PaintArea(QWidget* parent)
@@ -72,24 +73,31 @@ void PaintArea::clearImage()
 
 void PaintArea::mousePressEvent(QMouseEvent* event)
 {
+	qDebug() << "mousePressEvent";
 	if (event->button() == Qt::LeftButton) //if the left mouse button is pressed
 	{
 		lastPoint = event->pos(); //store the position of the mouse cursor
 		painting = true;
+		currentCommand = std::make_shared<DrawFreeHandCommand>(image, lastPoint, myPenColor, myPenWidth);
 	}
 }
 
 void PaintArea::mouseMoveEvent(QMouseEvent* event)
 {
 	if ((event->buttons() & Qt::LeftButton) && painting) //if left mouse button pressed && painting flag is true
-		drawLineTo(event->pos()); //draw a line from the last point to the current point
+	{
+		currentCommand->execute(event->pos());
+		//drawLineTo(event->pos()); //draw a line from the last point to the current point
+	}
 }
 
 void PaintArea::mouseReleaseEvent(QMouseEvent* event)
 {
+	qDebug() << "mouseReleaseEvent";
 	if (event->button() == Qt::LeftButton && painting) //if the left mouse button is released and the painting flag is true
 	{
-		drawLineTo(event->pos()); //draw a line from the last point to the current point
+		//drawLineTo(event->pos()); //draw a line from the last point to the current point
+		currentCommand->execute(event->pos());
 		painting = false; //set the painting flag to false
 	}
 }
@@ -99,6 +107,7 @@ void PaintArea::paintEvent(QPaintEvent* event)
 	QPainter painter(this); //create a painter object
 	QRect rect = event->rect(); //get the rectangle that needs to be updated
 	painter.drawImage(rect, *image, rect); //draw the image on the widget
+	update();
 }
 
 //this function is called when the widget is resized and the image is resized accordingly to the new size of the widget (the image is resized to a larger size)

@@ -54,17 +54,15 @@
         QAction *printAct;
         QAction *clearScreenAct;
         QAction *imageSizeAct;
+        QAction* aboutAct;
+        QAction* aboutQtAct;
 
-        //TODO: To implement
-        QAction *aboutAct;
-        QAction *aboutQtAct;
+        //TODO: Implement
         QAction *undoAct;
         QAction *redoAct;
         QAction *cutAct;
         QAction *copyAct;
         QAction *pasteAct;
-        QAction *selectAllAct;
-        QAction *selectNoneAct;
 
 
         QScrollArea* scrollArea;
