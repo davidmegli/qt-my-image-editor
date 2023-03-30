@@ -13,7 +13,7 @@ void CommandManager::executeCommand(shared_ptr<DrawCommand> command, QPoint last
 		qDebug() << "CommandManager::executeCommand - isCollapsible";
 		undoCommands.back()->collapse(command);
 	}
-	else
+	else 
 	{
 		qDebug() << "CommandManager::executeCommand - !isCollapsible";
 		undoCommands.push_back(command->clone());

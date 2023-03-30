@@ -55,7 +55,16 @@ std::shared_ptr<DrawCommand> DrawFreeHandCommand::clone() const
 
 bool DrawFreeHandCommand::isCollapsible(shared_ptr<DrawCommand> command) const
 {
-	return typeid(*command.get()) == typeid(DrawFreeHandCommand);
+	bool sameType = typeid(*command.get()) == typeid(DrawFreeHandCommand);
+	if (sameType)
+	{
+		bool sameColor = dynamic_cast<DrawFreeHandCommand*>(command.get())->penColor == this->penColor;
+		bool sameWidth = dynamic_cast<DrawFreeHandCommand*>(command.get())->penWidth == this->penWidth;
+		bool sameImage = dynamic_cast<DrawFreeHandCommand*>(command.get())->image == this->image;
+		bool isnewLine = dynamic_cast<DrawFreeHandCommand*>(command.get())->points.size() <= 2;
+		return sameColor && sameWidth && sameImage && !isnewLine;
+	}
+	return false;
 }
 
 DrawFreeHandCommand::~DrawFreeHandCommand()

@@ -78,7 +78,8 @@ void PaintArea::mousePressEvent(QMouseEvent* event)
 	{
 		lastPoint = event->pos(); //store the position of the mouse cursor
 		painting = true;
-		currentCommand = std::make_shared<DrawFreeHandCommand>(image, lastPoint, myPenColor, myPenWidth);
+		//currentCommand = std::make_shared<DrawFreeHandCommand>(image, lastPoint, myPenColor, myPenWidth);
+		currentCommand.reset(new DrawFreeHandCommand(image, lastPoint, myPenColor, myPenWidth));
 	}
 }
 
