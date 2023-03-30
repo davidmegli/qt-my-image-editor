@@ -65,7 +65,7 @@ void PaintArea::resizeImage(QSize& newSize)
 }
 
 void PaintArea::clearImage()
-{ //FIXME: never enters here
+{
 	image->fill(qRgb(255, 255, 255)); //fills the image with white
 	modified = true;
 	update();
@@ -149,10 +149,10 @@ void PaintArea::resizeImage(shared_ptr<QImage> image, const QSize& newSize)
 }
 
 void PaintArea::print()
-{ //FIXME: never enters here
+{
 #if QT_CONFIG(printdialog) //if the print dialog is available
-	QPrinter printer(QPrinter::HighResolution); //create a printer object
-	QPrintDialog printDialog(&printer, this); //create a print dialog object and set the printer object as the parent
+	QPrinter printer(QPrinter::HighResolution);
+	QPrintDialog printDialog(&printer, this);
 	if (printDialog.exec() == QDialog::Accepted)
 	{
 		QPainter painter(&printer); //create a painter object and set the printer object as the parent
@@ -173,6 +173,9 @@ void PaintArea::undo()
 
 void PaintArea::redo()
 {
+//FIXME: Siccome chiamo l'execute del commandManager nel mouseMoveEvent, mi aggiunge un command alla undoCommands per ogni trattino
+//Ogni volta che annullo o ripeto mi disegna o cancella una linea che arriva fino a quel punto
+//Devo fare in modo di collassare tutti questi command in uno solo, distinguendo però tratti diversi(iniziati da un mousePress e terminati dal Release)
 	commandManager.redoCommand();
 }
 

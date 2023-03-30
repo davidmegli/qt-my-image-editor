@@ -32,6 +32,7 @@ void DrawFreeHandCommand::undo()
 	{
 		painter.drawLine(points[i - 1], points[i]);
 	}
+	qDebug() << points.size() << " white lines drawn";
 }
 
 void DrawFreeHandCommand::redo()
@@ -43,12 +44,26 @@ void DrawFreeHandCommand::redo()
 	{
 		painter.drawLine(points[i - 1], points[i]);
 	}
+	qDebug() << points.size() << " lines drawn";
 }
 
-std::shared_ptr<DrawCommand> DrawFreeHandCommand::clone() const {
+std::shared_ptr<DrawCommand> DrawFreeHandCommand::clone() const
+{
+	qDebug() << "DrawFreeHandCommand::clone()";
 	return std::make_shared<DrawFreeHandCommand>(*this);
+}
+
+bool DrawFreeHandCommand::isCollapsible(shared_ptr<DrawCommand> command) const
+{
+	return typeid(*command.get()) == typeid(DrawFreeHandCommand);
 }
 
 DrawFreeHandCommand::~DrawFreeHandCommand()
 {
 }
+
+void DrawFreeHandCommand::collapse(shared_ptr<DrawCommand> command)
+{
+	this->points.append(dynamic_cast<DrawFreeHandCommand*>(command.get())->points.last());
+}
+

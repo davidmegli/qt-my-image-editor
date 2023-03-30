@@ -13,13 +13,15 @@ using std::shared_ptr;
 class DrawFreeHandCommand : public DrawCommand
 {
 public:
-	//cancellare la command list al caricamento di una nuova immagine
+	//TODO: cancellare la command list al caricamento di una nuova immagine
 	DrawFreeHandCommand(shared_ptr<QImage> image, QPoint startPoint, QColor penColor, int penWidth);
 	void execute(QPoint destPoint) override;
 	void execute() override;
 	void undo() override;
 	void redo() override;
 	std::shared_ptr<DrawCommand> clone() const override;
+	bool isCollapsible(shared_ptr<DrawCommand> command) const override;
+	void collapse(shared_ptr<DrawCommand> command) override;
 	~DrawFreeHandCommand();
 
 private:

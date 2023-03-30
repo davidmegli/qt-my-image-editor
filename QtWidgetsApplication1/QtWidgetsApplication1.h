@@ -20,15 +20,6 @@
     private slots:
         void open();
         void save();
-        /*void saveAs();
-        void close();
-        void undo();
-        void redo();
-        void cut();
-        void copy();
-        void paste();
-        void selectAll();
-        void selectNone();*/
         void penColor();
         void penWidth();
         void about();
