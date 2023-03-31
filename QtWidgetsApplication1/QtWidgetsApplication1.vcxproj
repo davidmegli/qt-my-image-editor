@@ -89,6 +89,7 @@
     <ClCompile Include="CommandManager.cpp" />
     <ClCompile Include="DrawCommand.cpp" />
     <ClCompile Include="DrawFreeHandCommand.cpp" />
+    <ClCompile Include="DrawRectangleCommand.cpp" />
     <ClCompile Include="PaintArea.cpp" />
     <ClCompile Include="QtWidgetsApplication1.cpp" />
     <ClCompile Include="main.cpp" />
@@ -97,7 +98,15 @@
     <ClInclude Include="CommandManager.h" />
     <ClInclude Include="DrawCommand.h" />
     <ClInclude Include="DrawFreeHandCommand.h" />
+    <ClInclude Include="DrawRectangleCommand.h" />
     <ClInclude Include="PaintArea.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\..\Downloads\circle_32.png" />
+    <Image Include="..\..\..\..\Downloads\line_32.png" />
+    <Image Include="..\..\..\..\Downloads\fill_32.png" />
+    <Image Include="..\..\..\..\Downloads\freehand_32.png" />
+    <Image Include="..\..\..\..\Downloads\rectangle_32.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

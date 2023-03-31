@@ -31,21 +31,26 @@
         bool maybeSave();
         bool saveFile(const QByteArray &fileFormat);
         PaintArea* paintArea;
-        QMenu *saveAsMenu;
+        QMenu* saveAsMenu;
         QMenu* optionMenu;
-        QMenu *fileMenu;
-        QMenu *editMenu;
-        QMenu *helpMenu;
-        QAction *openAct;
+        QMenu* fileMenu;
+        QMenu* editMenu;
+        QMenu* helpMenu;
+        QAction* openAct;
         QList<QAction *> saveAsActs;
-        QAction *exitAct;
-        QAction *penColorAct;
-        QAction *penWidthAct;
-        QAction *printAct;
-        QAction *clearScreenAct;
-        QAction *imageSizeAct;
+        QAction* exitAct;
+        QAction* penColorAct;
+        QAction* penWidthAct;
+        QAction* printAct;
+        QAction* clearScreenAct;
+        QAction* imageSizeAct;
         QAction* aboutAct;
         QAction* aboutQtAct;
+
+        QToolBar* toolbar;
+        QAction* drawFreeHandAct;
+        QAction* drawRectangleAct;
+        QAction* drawLineAct;
 
         //TODO: Implement
         QAction *undoAct;

@@ -27,6 +27,8 @@ void DrawFreeHandCommand::undo()
 {
 	qDebug() << "DrawFreeHandCommand undo";
 	QPainter painter(image.get());
+	//FIXME: colorare di bianco sull'undo cancella eventuali linee sottostanti
+	//potrebbe essere non risolvibile, se non salvando l'immagine originale
 	painter.setPen(QPen(Qt::white, penWidth));
 	for (int i = 1; i < points.size(); i++)
 	{

@@ -11,17 +11,13 @@ QtWidgetsApplication1::QtWidgetsApplication1(QWidget *parent)
 {
     ui.setupUi(this);
 
-    /*scene = new QGraphicsScene(this);
-    //imposta la dimensione della vista alla dimensione attuale del contenitore
-    //ui.graphicsView->fitInView(scene->sceneRect(), Qt::KeepAspectRatio);
-    this->setCentralWidget(ui.graphicsView); //setta la vista come widget centrale
-    
-    ui.graphicsView->setScene(scene); //setta la scena alla vista
-    QBrush brush(Qt::red);
-    QPen pen(Qt::black);
-    rect = scene->addRect(0, 0, 100, 100, pen, brush);*/
     paintArea = new PaintArea(this);
-    
+
+    // Crea la toolbar
+    toolbar = new QToolBar("My Toolbar", this);
+    // Aggiunge la toolbar alla finestra principale
+    addToolBar(Qt::LeftToolBarArea, toolbar);
+
     //Codice per aggiungere le scrollbar
     QScrollArea* scrollArea = new QScrollArea(parent);
     
@@ -168,6 +164,25 @@ void QtWidgetsApplication1::createActions()
 
     aboutQtAct = new QAction(tr("About &Qt"), this);
     connect(aboutQtAct, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
+
+    // Azione strumento disegno a mano libera
+    drawFreeHandAct = new QAction(QIcon("../icons/freehand_32.png"), tr("&Draw FreeHand"), this);
+    drawFreeHandAct->setShortcut(tr("F"));
+    drawFreeHandAct->setStatusTip(tr("Draw FreeHand"));
+    connect(drawFreeHandAct, &QAction::triggered, paintArea, &PaintArea::drawFreeHand);
+
+    // Azione strumento disegno linea
+    drawLineAct = new QAction(QIcon("../icons/line_32.png"), tr("&Draw Line"), this);
+    drawLineAct->setShortcut(tr("L"));
+    drawLineAct->setStatusTip(tr("Draw Line"));
+    connect(drawLineAct, &QAction::triggered, paintArea, &PaintArea::drawLine);
+
+    // Azione strumento disegno rettangolo
+    drawRectangleAct = new QAction(QIcon("../icons/rectangle_32.png"), tr("&Draw Rectangle"), this);
+    drawRectangleAct->setShortcut(tr("R"));
+    drawRectangleAct->setStatusTip(tr("Draw Rectangle"));
+    connect(drawRectangleAct, &QAction::triggered, paintArea, &PaintArea::drawRectangle);
+
 }
 
 void QtWidgetsApplication1::createMenus()
@@ -197,6 +212,10 @@ void QtWidgetsApplication1::createMenus()
     helpMenu = new QMenu(tr("&Help"), this);
     helpMenu->addAction(aboutAct);
     helpMenu->addAction(aboutQtAct);
+
+    toolbar->addAction(drawFreeHandAct);
+    toolbar->addAction(drawLineAct);
+    toolbar->addAction(drawRectangleAct);
 
     menuBar()->addMenu(fileMenu);
     menuBar()->addMenu(editMenu);

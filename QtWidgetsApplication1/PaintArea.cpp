@@ -8,6 +8,7 @@
 #include <QPrintDialog>
 #endif
 #include "DrawFreeHandCommand.h"
+#include "DrawRectangleCommand.h"
 #endif
 
 PaintArea::PaintArea(QWidget* parent)
@@ -20,6 +21,7 @@ PaintArea::PaintArea(QWidget* parent)
 	myPenColor = Qt::black;
 	image = std::make_shared<QImage>(DEF_WIDTH, DEF_HEIGHT, QImage::Format_RGB32);
 	image->fill(qRgb(255, 255, 255));
+	currentTool = Tool::FreeHand;
 }
 
 bool PaintArea::openImage(const QString& fileName)
@@ -78,8 +80,7 @@ void PaintArea::mousePressEvent(QMouseEvent* event)
 	{
 		lastPoint = event->pos(); //store the position of the mouse cursor
 		painting = true;
-		//currentCommand = std::make_shared<DrawFreeHandCommand>(image, lastPoint, myPenColor, myPenWidth);
-		currentCommand.reset(new DrawFreeHandCommand(image, lastPoint, myPenColor, myPenWidth));
+		instantiateCommand();
 	}
 }
 
@@ -149,6 +150,37 @@ void PaintArea::resizeImage(shared_ptr<QImage> image, const QSize& newSize)
 	this->setFixedSize(newSize); //TEST
 }
 
+void PaintArea::instantiateCommand()
+{
+	switch (currentTool)
+	{
+		case Tool::FreeHand:
+			currentCommand.reset(new DrawFreeHandCommand(image, lastPoint, myPenColor, myPenWidth));
+			break;
+		case Tool::Line://FIXME
+			currentCommand.reset(new DrawFreeHandCommand(image, lastPoint, myPenColor, myPenWidth));
+			break;
+		case Tool::Rectangle://FIXME
+			qDebug() << "Tool::Rectangle";
+			currentCommand.reset(new DrawRectangleCommand(image, lastPoint, myPenColor, myPenWidth));
+			break;
+		/*case Tool::Line:
+			currentCommand.reset(new DrawLineCommand(image, lastPoint, myPenColor, myPenWidth));
+			break;
+		case Tool::Rectangle:
+			currentCommand.reset(new DrawRectangleCommand(image, lastPoint, myPenColor, myPenWidth));
+			break;
+		case Tool::Ellipse:
+			currentCommand.reset(new DrawEllipseCommand(image, lastPoint, myPenColor, myPenWidth));
+			break;
+		case Tool::Text:
+			currentCommand.reset(new DrawTextCommand(image, lastPoint, myPenColor, myPenWidth));
+			break;*/
+		default:
+			currentCommand.reset(new DrawFreeHandCommand(image, lastPoint, myPenColor, myPenWidth));
+	}
+}
+
 void PaintArea::print()
 {
 #if QT_CONFIG(printdialog) //if the print dialog is available
@@ -174,10 +206,25 @@ void PaintArea::undo()
 
 void PaintArea::redo()
 {
-//FIXME: Siccome chiamo l'execute del commandManager nel mouseMoveEvent, mi aggiunge un command alla undoCommands per ogni trattino
-//Ogni volta che annullo o ripeto mi disegna o cancella una linea che arriva fino a quel punto
-//Devo fare in modo di collassare tutti questi command in uno solo, distinguendo però tratti diversi(iniziati da un mousePress e terminati dal Release)
 	commandManager.redoCommand();
+}
+
+void PaintArea::drawFreeHand()
+{
+	qDebug() << "drawFreeHand";
+	currentTool = Tool::FreeHand;
+}
+
+void PaintArea::drawLine()
+{
+	qDebug() << "drawLine";
+	currentTool = Tool::Line;
+}
+
+void PaintArea::drawRectangle()
+{
+	qDebug() << "drawRectangle";
+	currentTool = Tool::Rectangle;
 }
 
 PaintArea::~PaintArea()

@@ -31,12 +31,16 @@ public:
 
 	static const int DEF_WIDTH = 1280;
 	static const int DEF_HEIGHT = 720;
+	enum class Tool { FreeHand, Line, Rectangle };
 
 public slots:
 	void clearImage();
 	void print();
 	void undo();
 	void redo();
+	void drawFreeHand();
+	void drawLine();
+	void drawRectangle();
 
 protected:
 	void mousePressEvent(QMouseEvent* event) override;
@@ -48,6 +52,7 @@ protected:
 private:
 	void drawLineTo(const QPoint &endPoint);
 	void resizeImage(shared_ptr<QImage> image, const QSize& newSize);
+	void instantiateCommand();
 
 	bool modified;
 	bool painting;
@@ -57,6 +62,7 @@ private:
 	QPoint lastPoint;
 	CommandManager commandManager;
 	shared_ptr<DrawCommand> currentCommand;
+	Tool currentTool;
 
 };
 
