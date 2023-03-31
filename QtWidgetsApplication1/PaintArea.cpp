@@ -8,7 +8,9 @@
 #include <QPrintDialog>
 #endif
 #include "DrawFreeHandCommand.h"
+//#include "DrawLineCommand.h"
 #include "DrawRectangleCommand.h"
+#include "DrawEllipseCommand.h"
 #endif
 
 PaintArea::PaintArea(QWidget* parent)
@@ -164,15 +166,16 @@ void PaintArea::instantiateCommand()
 			qDebug() << "Tool::Rectangle";
 			currentCommand.reset(new DrawRectangleCommand(image, lastPoint, myPenColor, myPenWidth));
 			break;
+		case Tool::Ellipse:
+			currentCommand.reset(new DrawEllipseCommand(image, lastPoint, myPenColor, myPenWidth));
+			break;
 		/*case Tool::Line:
 			currentCommand.reset(new DrawLineCommand(image, lastPoint, myPenColor, myPenWidth));
 			break;
 		case Tool::Rectangle:
 			currentCommand.reset(new DrawRectangleCommand(image, lastPoint, myPenColor, myPenWidth));
 			break;
-		case Tool::Ellipse:
-			currentCommand.reset(new DrawEllipseCommand(image, lastPoint, myPenColor, myPenWidth));
-			break;
+		
 		case Tool::Text:
 			currentCommand.reset(new DrawTextCommand(image, lastPoint, myPenColor, myPenWidth));
 			break;*/
@@ -225,6 +228,12 @@ void PaintArea::drawRectangle()
 {
 	qDebug() << "drawRectangle";
 	currentTool = Tool::Rectangle;
+}
+
+void PaintArea::drawEllipse()
+{
+	qDebug() << "drawEllipse";
+	currentTool = Tool::Ellipse;
 }
 
 PaintArea::~PaintArea()

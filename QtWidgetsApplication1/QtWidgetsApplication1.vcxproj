@@ -88,6 +88,7 @@
     <QtMoc Include="QtWidgetsApplication1.h" />
     <ClCompile Include="CommandManager.cpp" />
     <ClCompile Include="DrawCommand.cpp" />
+    <ClCompile Include="DrawEllipseCommand.cpp" />
     <ClCompile Include="DrawFreeHandCommand.cpp" />
     <ClCompile Include="DrawRectangleCommand.cpp" />
     <ClCompile Include="PaintArea.cpp" />
@@ -97,6 +98,7 @@
   <ItemGroup>
     <ClInclude Include="CommandManager.h" />
     <ClInclude Include="DrawCommand.h" />
+    <ClInclude Include="DrawEllipseCommand.h" />
     <ClInclude Include="DrawFreeHandCommand.h" />
     <ClInclude Include="DrawRectangleCommand.h" />
     <ClInclude Include="PaintArea.h" />

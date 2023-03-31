@@ -31,7 +31,8 @@ public:
 
 	static const int DEF_WIDTH = 1280;
 	static const int DEF_HEIGHT = 720;
-	enum class Tool { FreeHand, Line, Rectangle };
+
+	enum class Tool { FreeHand, Line, Rectangle, Ellipse };
 
 public slots:
 	void clearImage();
@@ -41,6 +42,7 @@ public slots:
 	void drawFreeHand();
 	void drawLine();
 	void drawRectangle();
+	void drawEllipse();
 
 protected:
 	void mousePressEvent(QMouseEvent* event) override;

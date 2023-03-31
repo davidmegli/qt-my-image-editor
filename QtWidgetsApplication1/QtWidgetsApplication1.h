@@ -51,6 +51,7 @@
         QAction* drawFreeHandAct;
         QAction* drawRectangleAct;
         QAction* drawLineAct;
+        QAction* drawEllipseAct;
 
         //TODO: Implement
         QAction *undoAct;

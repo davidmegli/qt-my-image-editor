@@ -183,6 +183,12 @@ void QtWidgetsApplication1::createActions()
     drawRectangleAct->setStatusTip(tr("Draw Rectangle"));
     connect(drawRectangleAct, &QAction::triggered, paintArea, &PaintArea::drawRectangle);
 
+    // Azione strumento disegno ellisse
+    drawEllipseAct = new QAction(QIcon("../icons/ellipse_32.png"), tr("&Draw Ellipse"), this);
+    drawEllipseAct->setShortcut(tr("E"));
+    drawEllipseAct->setStatusTip(tr("Draw Ellipse"));
+    connect(drawEllipseAct, &QAction::triggered, paintArea, &PaintArea::drawEllipse);
+
 }
 
 void QtWidgetsApplication1::createMenus()
@@ -216,6 +222,7 @@ void QtWidgetsApplication1::createMenus()
     toolbar->addAction(drawFreeHandAct);
     toolbar->addAction(drawLineAct);
     toolbar->addAction(drawRectangleAct);
+    toolbar->addAction(drawEllipseAct);
 
     menuBar()->addMenu(fileMenu);
     menuBar()->addMenu(editMenu);
