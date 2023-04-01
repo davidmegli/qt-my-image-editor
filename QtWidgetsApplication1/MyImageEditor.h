@@ -2,17 +2,17 @@
 
     #include <QtWidgets/QMainWindow>
     #include <QGraphicsScene>
-    #include "ui_QtWidgetsApplication1.h"
+    #include "ui_MyImageEditor.h"
     #include "PaintArea.h"
     #include <QScrollArea>
 
-    class QtWidgetsApplication1 : public QMainWindow
+    class MyImageEditor : public QMainWindow
     {
         Q_OBJECT
 
     public:
-        QtWidgetsApplication1(QWidget *parent = nullptr);
-        ~QtWidgetsApplication1();
+        MyImageEditor(QWidget *parent = nullptr);
+        ~MyImageEditor();
 
     protected:
         void closeEvent(QCloseEvent *event) override;
@@ -63,7 +63,7 @@
 
         QScrollArea* scrollArea;
 
-        Ui::QtWidgetsApplication1Class ui;
+        Ui::MyImageEditorClass ui;
         QGraphicsScene* scene;
         QGraphicsRectItem *rect;
         QGraphicsEllipseItem* ellipse;

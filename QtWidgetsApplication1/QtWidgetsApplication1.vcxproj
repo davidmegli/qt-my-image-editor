@@ -16,6 +16,7 @@
     <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">10.0.19041.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">10.0.19041.0</WindowsTargetPlatformVersion>
     <QtMsBuild Condition="'$(QtMsBuild)'=='' OR !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
+    <ProjectName>MyImageEditor</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
@@ -83,16 +84,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <QtRcc Include="QtWidgetsApplication1.qrc" />
-    <QtUic Include="QtWidgetsApplication1.ui" />
-    <QtMoc Include="QtWidgetsApplication1.h" />
+    <QtRcc Include="MyImageEditor.qrc" />
+    <QtUic Include="MyImageEditor.ui" />
+    <QtMoc Include="MyImageEditor.h" />
     <ClCompile Include="CommandManager.cpp" />
     <ClCompile Include="DrawCommand.cpp" />
     <ClCompile Include="DrawEllipseCommand.cpp" />
     <ClCompile Include="DrawFreeHandCommand.cpp" />
     <ClCompile Include="DrawRectangleCommand.cpp" />
     <ClCompile Include="PaintArea.cpp" />
-    <ClCompile Include="QtWidgetsApplication1.cpp" />
+    <ClCompile Include="MyImageEditor.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -102,13 +103,32 @@
     <ClInclude Include="DrawFreeHandCommand.h" />
     <ClInclude Include="DrawRectangleCommand.h" />
     <ClInclude Include="PaintArea.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\..\Downloads\circle_32.png" />
-    <Image Include="..\..\..\..\Downloads\line_32.png" />
-    <Image Include="..\..\..\..\Downloads\fill_32.png" />
-    <Image Include="..\..\..\..\Downloads\freehand_32.png" />
-    <Image Include="..\..\..\..\Downloads\rectangle_32.png" />
+    <ResourceCompile Include="MyImageEditor.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icons\circle_32.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="icons\fill_32.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="icons\freehand_32.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="icons\line_32.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+    </Image>
+    <Image Include="icons\rectangle_32.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+    </Image>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

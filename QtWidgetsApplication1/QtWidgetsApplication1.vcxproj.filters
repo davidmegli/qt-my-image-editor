@@ -9,10 +9,6 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>qrc;rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="Form Files">
       <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
       <Extensions>ui</Extensions>
@@ -21,21 +17,22 @@
       <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
       <Extensions>ts</Extensions>
     </Filter>
-    <Filter Include="icons">
-      <UniqueIdentifier>{d8243bd0-1774-473f-acf6-e2f68cc3b819}</UniqueIdentifier>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>qrc;rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <QtRcc Include="QtWidgetsApplication1.qrc">
+    <QtRcc Include="MyImageEditor.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
-    <QtUic Include="QtWidgetsApplication1.ui">
+    <QtUic Include="MyImageEditor.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <QtMoc Include="QtWidgetsApplication1.h">
+    <QtMoc Include="MyImageEditor.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <ClCompile Include="QtWidgetsApplication1.cpp">
+    <ClCompile Include="MyImageEditor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -81,22 +78,30 @@
     <ClInclude Include="DrawEllipseCommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\..\Downloads\line_32.png">
-      <Filter>icons</Filter>
+    <ResourceCompile Include="MyImageEditor.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icons\circle_32.png">
+      <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="..\..\..\..\Downloads\circle_32.png">
-      <Filter>icons</Filter>
+    <Image Include="icons\fill_32.png">
+      <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="..\..\..\..\Downloads\rectangle_32.png">
-      <Filter>icons</Filter>
+    <Image Include="icons\freehand_32.png">
+      <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="..\..\..\..\Downloads\freehand_32.png">
-      <Filter>icons</Filter>
+    <Image Include="icons\line_32.png">
+      <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="..\..\..\..\Downloads\fill_32.png">
-      <Filter>icons</Filter>
+    <Image Include="icons\rectangle_32.png">
+      <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
 </Project>

@@ -1,4 +1,4 @@
-#include "QtWidgetsApplication1.h"
+#include "MyImageEditor.h"
 #include <QtWidgets/QApplication>
 #include <QApplication>
 #include <QMainWindow>
@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    QtWidgetsApplication1 w;
+    MyImageEditor w;
     w.show();
     return a.exec();
 }

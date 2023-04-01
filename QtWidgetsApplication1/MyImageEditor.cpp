@@ -1,4 +1,4 @@
-#include "QtWidgetsApplication1.h"
+#include "MyImageEditor.h"
 #include <QFileDialog>
 #include <QColorDialog>
 #include <QInputDialog>
@@ -6,7 +6,7 @@
 #include <QImageWriter>
 
 
-QtWidgetsApplication1::QtWidgetsApplication1(QWidget *parent)
+MyImageEditor::MyImageEditor(QWidget *parent)
     : QMainWindow(parent)
 {
     ui.setupUi(this);
@@ -45,7 +45,7 @@ QtWidgetsApplication1::QtWidgetsApplication1(QWidget *parent)
     resize(PaintArea::DEF_WIDTH, PaintArea::DEF_HEIGHT);
 }
 
-void QtWidgetsApplication1::closeEvent(QCloseEvent* event)
+void MyImageEditor::closeEvent(QCloseEvent* event)
 {
     if (maybeSave()) {
 		event->accept();
@@ -55,7 +55,7 @@ void QtWidgetsApplication1::closeEvent(QCloseEvent* event)
 	}
 }
 
-void QtWidgetsApplication1::open()
+void MyImageEditor::open()
 {
     if (maybeSave())
     {
@@ -67,14 +67,14 @@ void QtWidgetsApplication1::open()
 	}
 }
 
-void QtWidgetsApplication1::save()
+void MyImageEditor::save()
 {
     QAction* action = qobject_cast<QAction*>(sender());
     QByteArray fileFormat = action->data().toByteArray();
     saveFile(fileFormat);
 }
 
-void QtWidgetsApplication1::penColor()
+void MyImageEditor::penColor()
 {
     QColor newColor = QColorDialog::getColor(paintArea->penColor());
     if (newColor.isValid())
@@ -83,7 +83,7 @@ void QtWidgetsApplication1::penColor()
     }
 }
 
-void QtWidgetsApplication1::penWidth()
+void MyImageEditor::penWidth()
 {
 	bool ok;
     int newWidth = QInputDialog::getInt(this, tr("Paint"), tr("Select pen width:"),
@@ -94,13 +94,13 @@ void QtWidgetsApplication1::penWidth()
 	}
 }
 
-void QtWidgetsApplication1::about()
+void MyImageEditor::about()
 {
 	QMessageBox::about(this, tr("About Paint"),
         tr("<p><b>Paint</b> is a small Qt application</p>"));
 }
 
-void QtWidgetsApplication1::resizeImage()
+void MyImageEditor::resizeImage()
 {
     int currentSize = 1024;//paintArea->image().size().width();
     bool ok;
@@ -118,7 +118,7 @@ void QtWidgetsApplication1::resizeImage()
     }
 }
 
-void QtWidgetsApplication1::createActions()
+void MyImageEditor::createActions()
 {
     openAct = new QAction(tr("Open"), this); //create the action for opening a file
     openAct->setShortcuts(QKeySequence::Open); //sets the shortcut to Ctrl+O
@@ -166,32 +166,33 @@ void QtWidgetsApplication1::createActions()
     connect(aboutQtAct, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
 
     // Azione strumento disegno a mano libera
-    drawFreeHandAct = new QAction(QIcon("../icons/freehand_32.png"), tr("&Draw FreeHand"), this);
+    drawFreeHandAct = new QAction(QIcon("/icons/freehand_32.png"), tr("&Draw FreeHand"), this);
+    //drawFreeHandAct = new QAction(tr("&Draw FreeHand"), this);
     drawFreeHandAct->setShortcut(tr("F"));
     drawFreeHandAct->setStatusTip(tr("Draw FreeHand"));
     connect(drawFreeHandAct, &QAction::triggered, paintArea, &PaintArea::drawFreeHand);
 
     // Azione strumento disegno linea
-    drawLineAct = new QAction(QIcon("../icons/line_32.png"), tr("&Draw Line"), this);
+    drawLineAct = new QAction(QIcon("/icons/line_32.png"), tr("&Draw Line"), this);
     drawLineAct->setShortcut(tr("L"));
     drawLineAct->setStatusTip(tr("Draw Line"));
     connect(drawLineAct, &QAction::triggered, paintArea, &PaintArea::drawLine);
 
     // Azione strumento disegno rettangolo
-    drawRectangleAct = new QAction(QIcon("../icons/rectangle_32.png"), tr("&Draw Rectangle"), this);
+    drawRectangleAct = new QAction(QIcon("/icons/rectangle_32.png"), tr("&Draw Rectangle"), this);
     drawRectangleAct->setShortcut(tr("R"));
     drawRectangleAct->setStatusTip(tr("Draw Rectangle"));
     connect(drawRectangleAct, &QAction::triggered, paintArea, &PaintArea::drawRectangle);
 
     // Azione strumento disegno ellisse
-    drawEllipseAct = new QAction(QIcon("../icons/ellipse_32.png"), tr("&Draw Ellipse"), this);
+    drawEllipseAct = new QAction(QIcon("/icons/ellipse_32.png"), tr("&Draw Ellipse"), this);
     drawEllipseAct->setShortcut(tr("E"));
     drawEllipseAct->setStatusTip(tr("Draw Ellipse"));
     connect(drawEllipseAct, &QAction::triggered, paintArea, &PaintArea::drawEllipse);
 
 }
 
-void QtWidgetsApplication1::createMenus()
+void MyImageEditor::createMenus()
 {
     saveAsMenu = new QMenu(tr("&Save As"), this);
     foreach(QAction* action, saveAsActs)
@@ -230,7 +231,7 @@ void QtWidgetsApplication1::createMenus()
     menuBar()->addMenu(helpMenu);
 }
 
-bool QtWidgetsApplication1::maybeSave()
+bool MyImageEditor::maybeSave()
 {
     if (paintArea->isModified())
     {
@@ -250,7 +251,7 @@ bool QtWidgetsApplication1::maybeSave()
     return true;
 }
 
-bool QtWidgetsApplication1::saveFile(const QByteArray &fileFormat)
+bool MyImageEditor::saveFile(const QByteArray &fileFormat)
 {
     QString initialPath = QDir::currentPath() + "/untitled." + fileFormat;
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save As"),
@@ -262,5 +263,5 @@ bool QtWidgetsApplication1::saveFile(const QByteArray &fileFormat)
         return paintArea->saveImage(fileName, fileFormat.constData());
 }
 
-QtWidgetsApplication1::~QtWidgetsApplication1()
+MyImageEditor::~MyImageEditor()
 {}
